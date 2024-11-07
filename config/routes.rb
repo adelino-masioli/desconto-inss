@@ -4,19 +4,21 @@ require 'sidekiq/web' # Necessário para o painel do Sidekiq
 
 Rails.application.routes.draw do
   # Proteja a rota do painel do Sidekiq (opcional, mas recomendado)
-  # authenticate :user, ->(user) { user.admin? } do # Exemplo com Devise e um admin check
-  #   mount Sidekiq::Web => '/sidekiq'
-  # end
-
-  # Caso esteja em um ambiente de desenvolvimento ou queira deixar aberto, use:
-  # mount Sidekiq::Web => '/sidekiq'
-
   if Rails.env.development?
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  # Rota principal (exemplo)
-  # root "home#index"
+  # Rota principal
+  root "proponentes#index"  # A página inicial pode ser a lista de proponentes, por exemplo
 
-  # Outras rotas da sua aplicação aqui
+  # Rotas para Proponentes
+  resources :proponentes do
+    collection do
+      # Rota personalizada para o cálculo de desconto
+      get :calcular_inss
+
+      # Rota personalizada para o relatório de faixas salariais
+      get :relatorio
+    end
+  end
 end

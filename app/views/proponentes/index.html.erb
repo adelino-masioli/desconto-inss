@@ -1,0 +1,32 @@
+<!-- app/views/proponentes/index.html.erb -->
+
+<h1>Proponentes</h1>
+
+<%= link_to 'Novo Proponente', new_proponente_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>CPF</th>
+      <th>Salário</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @proponentes.each do |proponente| %>
+      <tr>
+        <td><%= proponente.nome %></td>
+        <td><%= proponente.cpf %></td>
+        <td><%= number_to_currency(proponente.salario) %></td>
+        <td>
+          <%= link_to 'Show', proponente_path(proponente) %> |
+          <%= link_to 'Edit', edit_proponente_path(proponente) %> |
+          <%= link_to 'Delete', proponente_path(proponente), method: :delete, data: { confirm: 'Tem certeza?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Novo Proponente', new_proponente_path %>

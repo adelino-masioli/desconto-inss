@@ -1,0 +1,48 @@
+<h1>Relatório de Funcionários por Faixa Salarial</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Faixa Salarial</th>
+      <th>Quantidade de Funcionários</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @faixas.each do |faixa| %>
+      <tr>
+        <td>R$ <%= number_with_precision(faixa[:min], precision: 2) %> a R$ <%= number_with_precision(faixa[:max], precision: 2) %></td>
+        <td><%= faixa[:count] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<canvas id="faixasChart"></canvas>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const ctx = document.getElementById('faixasChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: <%= raw @faixas.map { |f| "R$ #{f[:min]} - R$ #{f[:max]}" }.to_json %>,
+      datasets: [{
+        label: 'Quantidade de Funcionários',
+        data: <%= raw @faixas.map { |f| f[:count] }.to_json %>,
+        backgroundColor: 'rgba(75, 192, 192, 0.6)'
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1
+          }
+        }
+      }
+    }
+  });
+});
+</script>

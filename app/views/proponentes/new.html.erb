@@ -1,0 +1,23 @@
+<%= form_with(model: @proponente, local: true) do |form| %>
+  <!-- Outros campos do formulário -->
+
+  <div class="field">
+    <%= form.label :salario %>
+    <%= form.number_field :salario, step: 0.01, id: 'salario_input' %>
+  </div>
+
+  <div id="desconto_inss"></div>
+
+  <!-- Botão de submit -->
+<% end %>
+
+<script>
+document.getElementById('salario_input').addEventListener('change', function() {
+  const salario = this.value;
+  fetch(`/proponentes/calcular_inss?salario=${salario}`)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('desconto_inss').textContent = `Desconto INSS: R$ ${data.desconto}`;
+    });
+});
+</script>
