@@ -1,6 +1,6 @@
 # ProponentesController: Controlador para gerenciar os proponentes no sistema.
 class ProponentesController < ApplicationController
-  before_action :set_proponente, only: %i[show edit update destroy]
+  before_action :set_proponente, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
   def index

@@ -1,10 +1,4 @@
 pt-BR:
-  proponentes:
-    success: "Proponente salvo com sucesso."
-    update_success: "Proponente atualizado com sucesso."
-    destroy_success: "Proponente excluído com sucesso."
-    not_found: "Proponente não encontrado."
-    job_in_progress: "A atualização do salário está em andamento."
   activerecord:
     errors:
       models:
@@ -32,3 +26,12 @@ pt-BR:
               blank: "não pode ficar em branco"
             salario:
               blank: "não pode ficar em branco"
+      messages:
+        record_invalid: "não é válido"
+
+  proponentes:
+    success: "Proponente salvo com sucesso."
+    update_success: "Proponente atualizado com sucesso."
+    destroy_success: "Proponente excluído com sucesso."
+    not_found: "Proponente não encontrado."
+    job_in_progress: "A atualização do salário está em andamento."
