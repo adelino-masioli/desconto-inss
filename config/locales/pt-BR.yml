@@ -5,3 +5,30 @@ pt-BR:
     destroy_success: "Proponente excluído com sucesso."
     not_found: "Proponente não encontrado."
     job_in_progress: "A atualização do salário está em andamento."
+  activerecord:
+    errors:
+      models:
+        proponente:
+          attributes:
+            nome:
+              blank: "não pode ficar em branco"
+            cpf:
+              blank: "não pode ficar em branco"
+            data_nascimento:
+              blank: "não pode ficar em branco"
+            logradouro:
+              blank: "não pode ficar em branco"
+            numero:
+              blank: "não pode ficar em branco"
+            bairro:
+              blank: "não pode ficar em branco"
+            cidade:
+              blank: "não pode ficar em branco"
+            estado:
+              blank: "não pode ficar em branco"
+            cep:
+              blank: "não pode ficar em branco"
+            telefones:
+              blank: "não pode ficar em branco"
+            salario:
+              blank: "não pode ficar em branco"
