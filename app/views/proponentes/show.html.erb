@@ -1,31 +1,57 @@
 <div class="container mt-5">
-  <h1 class="mb-4">Detalhes do Proponente</h1>
+  <!-- Título da página -->
+  <h1 class="mb-4 text-center display-4">Detalhes do Proponente</h1>
 
-  <div>
-    <h2><%= @proponente.nome %></h2>
-    <p>CPF: <%= @proponente.cpf %></p>
-    <p>Salário: <%= number_to_currency(@proponente.salario) %></p>
-    <p>Desconto INSS: <%= number_to_currency(@proponente.desconto_inss) %></p>
-    
-    <!-- Exibindo as faixas salariais -->
-    <h3>Quantidade de Proponentes por Faixa Salarial</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Faixa Salarial</th>
-          <th>Quantidade</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @proponentes_por_faixa.each do |faixa, count| %>
-          <tr>
-            <td><%= faixa %></td>
-            <td><%= count %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <!-- Card para as informações principais -->
+  <div class="card shadow-lg border-0 rounded-3 mb-4">
+    <div class="card-body">
+      <h2 class="card-title text-primary"><%= @proponente.nome %></h2>
+      <p class="card-text">
+        <strong>CPF:</strong> <%= @proponente.cpf %><br />
+        <strong>Salário:</strong> <%= number_to_currency(@proponente.salario) %><br />
+        <strong>Desconto INSS:</strong> <%= number_to_currency(@proponente.desconto_inss) %><br />
+                <strong>Data de Nascimento:</strong> <%= @proponente.data_nascimento.strftime('%d/%m/%Y') %><br />
+        <strong>Telefone:</strong> <%= @proponente.telefones["pessoal"] %><br />
+        <strong>Endereço:</strong> <%= @proponente.logradouro %>, </strong> <%= @proponente.numero %>, </strong> <%= @proponente.cep %> - </strong> <%= @proponente.bairro %><br />
+        <strong>Cidade:</strong> <%= @proponente.cidade %><br />
+        <strong>Estado:</strong> <%= @proponente.estado %>
+      </p>
+    </div>
+  </div>
 
-    <%= link_to 'Voltar', proponentes_path, class: 'btn btn-secondary' %>
+  <!-- Exibindo as faixas salariais, se houver -->
+  <% if @proponentes_por_faixa.present? %>
+    <div class="card shadow-lg border-0 rounded-3 mb-4">
+      <div class="card-header bg-primary text-white">
+        <h3 class="mb-0">Quantidade de Proponentes por Faixa Salarial</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Faixa Salarial</th>
+              <th>Quantidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @proponentes_por_faixa.each do |faixa| %>
+              <tr>
+                <td><%= faixa[:nome] %></td>
+                <td><%= faixa[:count] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% else %>
+    <div class="alert alert-info">
+      <p>Não há dados de faixas salariais disponíveis no momento.</p>
+    </div>
+  <% end %>
+
+  <!-- Link de voltar -->
+  <div class="d-flex justify-content-end">
+    <%= link_to 'Voltar', proponentes_path, class: 'btn btn-secondary btn-lg' %>
   </div>
 </div>

@@ -3,6 +3,7 @@
 require 'sidekiq/web' # Necessário para o painel do Sidekiq
 
 Rails.application.routes.draw do
+  devise_for :users
   # Proteja a rota do painel do Sidekiq (opcional, mas recomendado)
   if Rails.env.development?
     mount Sidekiq::Web => '/sidekiq'

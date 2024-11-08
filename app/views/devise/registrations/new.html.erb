@@ -1,0 +1,60 @@
+<div class="container mt-5">
+  <h1 class="mb-5 text-center display-6">Sign up</h1>
+
+  <div class="row">
+    <!-- Coluna do Formulário -->
+    <div class="col-md-4">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'needs-validation', novalidate: true }) do |f| %>
+        <% if resource.errors.any? %>
+          <div class="alert alert-danger mb-4">
+            <h4><%= pluralize(resource.errors.count, "erro") %> impediram o cadastro:</h4>
+            <ul>
+              <% resource.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="card p-5 shadow-lg border-0 rounded-3">
+          <!-- Campo de Email -->
+          <div class="mb-4">
+            <%= f.label :email, class: 'form-label fw-bold' %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'Digite seu e-mail', required: true %>
+          </div>
+
+          <!-- Campo de Senha -->
+          <div class="mb-4">
+            <%= f.label :password, class: 'form-label fw-bold' %>
+            <% if @minimum_password_length %>
+              <small class="text-muted">(mínimo de <%= @minimum_password_length %> caracteres)</small>
+            <% end %>
+            <%= f.password_field :password, autocomplete: "new-password", class: 'form-control', placeholder: 'Digite sua senha', required: true %>
+          </div>
+
+          <!-- Campo de Confirmação de Senha -->
+          <div class="mb-4">
+            <%= f.label :password_confirmation, class: 'form-label fw-bold' %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', placeholder: 'Confirme sua senha', required: true %>
+          </div>
+
+          <!-- Botão de Submissão -->
+          <div class="d-grid gap-2">
+            <%= f.submit "Sign up", class: 'btn btn-primary btn-lg' %>
+          </div>
+
+          <!-- Links de Ação -->
+          <div class="d-flex justify-content-between mt-3">
+            <%= link_to 'Esqueceu a senha?', new_user_password_path, class: 'btn btn-link text-muted btn-sm' %>
+            <%= link_to 'Já tem uma conta?', new_session_path(resource_name), class: 'btn btn-link text-muted btn-sm' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Coluna da Imagem -->
+    <div class="col-md-8">
+      <img src="https://images.unsplash.com/photo-1542744173-05336fcc7ad4?q=80&w=1702&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Imagem de INSS" class="img-fluid rounded-3 shadow-lg">
+    </div>
+  </div>
+</div>

@@ -6,7 +6,9 @@ class ProponentesController < ApplicationController
     @proponentes = Proponente.order(:nome).page(params[:page]).per(5)
   end
 
-  def show; end
+  def show
+    @proponentes_por_faixa = ProponentesPresenter.new.faixas_salariais
+  end
 
   def new
     @proponente = Proponente.new

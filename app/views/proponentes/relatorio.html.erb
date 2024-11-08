@@ -26,7 +26,7 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('load', function() {
   const ctx = document.getElementById('faixasChart').getContext('2d');
   new Chart(ctx, {
     type: 'bar',
@@ -59,4 +59,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
 </script>

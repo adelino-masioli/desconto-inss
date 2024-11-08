@@ -1,8 +1,12 @@
 # Use a imagem do Ruby como base
 FROM ruby:3.2
 
-# Instale dependências
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+# Instale dependências do sistema, incluindo nodejs, yarn, e PostgreSQL client
+RUN apt-get update -qq && apt-get install -y \
+    nodejs \
+    postgresql-client \
+    yarn \
+    && apt-get clean
 
 # Configuração do diretório de trabalho
 WORKDIR /app
