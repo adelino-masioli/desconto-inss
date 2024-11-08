@@ -17,24 +17,34 @@ application.register("proponente", ProponenteController)
 
 
 document.addEventListener("DOMContentLoaded", function() {
-    const cpfInput = document.querySelector("#cpf-input");
-  
-    if (cpfInput) {
+  const cpfInput = document.querySelector("#cpf-input");
+
+  if (cpfInput) {
       cpfInput.addEventListener("input", function(e) {
-        let value = e.target.value;
-  
-        // Remove qualquer coisa que não seja número
-        value = value.replace(/\D/g, "");
-  
-        // Adiciona a máscara de CPF (XXX.XXX.XXX-XX)
-        if (value.length <= 11) {
-          value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,})/, "$1.$2.$3-$4");
-        }else{
-            return false
-        }
-  
-        e.target.value = value;
+          let value = e.target.value;
+
+          // Remove qualquer caractere que não seja número
+          value = value.replace(/\D/g, "");
+
+          // Limita o input a 11 dígitos
+          value = value.slice(0, 11);
+
+          // Aplica a máscara de CPF (XXX.XXX.XXX-XX)
+          value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+
+          // Remove o último ponto ou traço se o CPF estiver incompleto
+          value = value.replace(/\.$/, "").replace(/-$/, "");
+
+          e.target.value = value;
       });
-    }
-  });
-  
+
+      // Adiciona validação ao perder o foco
+      cpfInput.addEventListener("blur", function(e) {
+          let value = e.target.value.replace(/\D/g, "");
+          if (value.length !== 11) {
+              alert("CPF inválido. Por favor, insira 11 dígitos.");
+              e.target.value = "";
+          }
+      });
+  }
+});
