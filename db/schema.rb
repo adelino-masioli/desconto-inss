@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_07_105641) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_07_191305) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,11 +18,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_07_105641) do
     t.string "nome"
     t.string "cpf"
     t.date "data_nascimento"
-    t.string "endereco"
-    t.string "telefone_contato"
-    t.decimal "salario"
+    t.string "logradouro"
+    t.string "numero"
+    t.string "bairro"
+    t.string "cidade"
+    t.string "estado"
+    t.string "cep"
+    t.json "telefones"
+    t.decimal "salario", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "desconto_inss"
   end
 
 end

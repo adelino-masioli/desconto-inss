@@ -56,6 +56,7 @@ gem 'groupdate'    # Para agrupamento de datas em relatórios
 
 # Gem de paginação
 gem 'kaminari'
+gem 'kaminari-bootstrap'
 
 # Gems para background jobs
 gem 'sidekiq'
@@ -64,9 +65,17 @@ gem 'redis'
 # Gem para análise de código e boas práticas
 gem 'rubocop-rails', require: false
 
+# Gems para autenticação
+gem 'devise', '~> 4.9.0'
+gem 'bcrypt', '~> 3.1.7'
+gem 'orm_adapter', '~> 0.5.0'
+gem 'responders', '~> 3.1'
+gem 'warden', '~> 1.2'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'faker', '~> 2.23'
 end
 
 group :development do

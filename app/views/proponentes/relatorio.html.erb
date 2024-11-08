@@ -1,23 +1,29 @@
-<h1>Relatório de Funcionários por Faixa Salarial</h1>
+<div class="container mt-5">
+  <h1 class="mb-4 text-center display-6">Relatório de Funcionários por Faixa Salarial</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Faixa Salarial</th>
-      <th>Quantidade de Funcionários</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @faixas.each do |faixa| %>
-      <tr>
-        <td>R$ <%= number_with_precision(faixa[:min], precision: 2) %> a R$ <%= number_with_precision(faixa[:max], precision: 2) %></td>
-        <td><%= faixa[:count] %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div class="card shadow-lg border-0 rounded-3 p-4">
+    <table class="table table-striped">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">Faixa Salarial</th>
+          <th scope="col">Quantidade de Funcionários</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @faixas.each do |faixa| %>
+          <tr>
+            <td>R$ <%= number_with_precision(faixa[:min], precision: 2) %> a R$ <%= number_with_precision(faixa[:max], precision: 2) %></td>
+            <td><%= faixa[:count] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-<canvas id="faixasChart"></canvas>
+  <div class="mt-4">
+    <canvas id="faixasChart"></canvas>
+  </div>
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -29,11 +35,19 @@ document.addEventListener('DOMContentLoaded', function() {
       datasets: [{
         label: 'Quantidade de Funcionários',
         data: <%= raw @faixas.map { |f| f[:count] }.to_json %>,
-        backgroundColor: 'rgba(75, 192, 192, 0.6)'
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
       }]
     },
     options: {
       responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top'
+        }
+      },
       scales: {
         y: {
           beginAtZero: true,

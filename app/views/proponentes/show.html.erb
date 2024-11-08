@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Detalhes do Proponente</h1>
+
+  <div>
+    <h2><%= @proponente.nome %></h2>
+    <p>CPF: <%= @proponente.cpf %></p>
+    <p>Salário: <%= number_to_currency(@proponente.salario) %></p>
+    <p>Desconto INSS: <%= number_to_currency(@proponente.desconto_inss) %></p>
+    
+    <!-- Exibindo as faixas salariais -->
+    <h3>Quantidade de Proponentes por Faixa Salarial</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Faixa Salarial</th>
+          <th>Quantidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @proponentes_por_faixa.each do |faixa, count| %>
+          <tr>
+            <td><%= faixa %></td>
+            <td><%= count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to 'Voltar', proponentes_path, class: 'btn btn-secondary' %>
+  </div>
+</div>

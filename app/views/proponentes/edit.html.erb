@@ -1,0 +1,37 @@
+<div class="container mt-5">
+  <h1 class="mb-4 text-center display-6">Editar Proponente</h1>
+
+  <%= form_with(model: @proponente, local: true) do |form| %>
+    <% if @proponente.errors.any? %>
+      <div class="alert alert-danger mb-4">
+        <h4><%= pluralize(@proponente.errors.count, "erro") %> impediram este proponente de ser salvo:</h4>
+        <ul>
+          <% @proponente.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="card p-5 shadow-lg border-0 rounded-3">
+      <!-- Campos do formulário para editar o proponente -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <%= form.label :nome, class: 'form-label fw-bold' %>
+          <%= form.text_field :nome, class: 'form-control', required: true %>
+        </div>
+        <div class="col-md-6 mb-3">
+          <%= form.label :cpf, class: 'form-label fw-bold' %>
+          <%= form.text_field :cpf, class: 'form-control', required: true %>
+        </div>
+      </div>
+
+      <!-- Adicione outros campos conforme necessário -->
+      
+      <div class="d-flex justify-content-end mt-4">
+        <%= link_to 'Voltar', proponentes_path, class: 'btn btn-outline-secondary me-2' %>
+        <%= form.submit 'Salvar', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>

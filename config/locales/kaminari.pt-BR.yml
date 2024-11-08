@@ -1,0 +1,14 @@
+pt-BR:
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries: "Mostrando todos os %{count} registros"
+      more_pages:
+        display_entries: "Mostrando %{first}–%{last} de %{total} registros"
+  views:
+    pagination:
+      first: "Primeira"
+      last: "Última"
+      previous: "Anterior"
+      next: "Próxima"
+      truncate: "..."
