@@ -14,6 +14,7 @@ class Proponente < ApplicationRecord
   validates :salario, presence: true, numericality: { greater_than: 0 }
   validates :logradouro, :numero, :bairro, :cidade, :estado, :cep, presence: true
   validate :data_nascimento_valida
+ 
 
   # Serialização do campo telefones
   serialize :telefones, HashSerializer
@@ -73,5 +74,31 @@ class Proponente < ApplicationRecord
     return unless data_nascimento.present? && data_nascimento > Date.current
 
     errors.add(:data_nascimento, 'não pode ser uma data futura')
+  end
+
+  # Valida o CPF
+  def cpf_valido
+    cpf = self.cpf.gsub(/\D/, '')  # Remove tudo que não for número
+    return errors.add(:cpf, "não é válido") unless valid_cpf?(cpf)
+  end
+
+  # Método para validar o CPF
+  def valid_cpf?(cpf)
+    return false if cpf.length != 11 || cpf =~ /(\d)\1{10}/  # Verifica se todos os dígitos são iguais
+
+    # Cálculo do dígito verificador
+    9.times do |i|
+      digit = 10 - i
+      total = 0
+      cpf.chars[0, digit].each_with_index do |char, index|
+        total += char.to_i * (digit - index)
+      end
+      check_digit = (total * 10) % 11
+      check_digit = 0 if check_digit == 10
+
+      return false if check_digit != cpf[digit].to_i
+    end
+
+    true
   end
 end

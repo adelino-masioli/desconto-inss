@@ -12,17 +12,24 @@ class ProponentesController < ApplicationController
 
   def new
     @proponente = Proponente.new
+    @proponente.telefones = {}
   end
 
   def create
     @proponente = Proponente.new(proponente_params)
-
+  
     if @proponente.save
-      redirect_to @proponente, notice: t('.success')
+      redirect_to @proponente, notice: t('proponentes.create.success')
+      
     else
-      render :new
+      flash.now[:alert] = @proponente.errors.full_messages.to_sentence
+      respond_to do |format|
+        format.html { render :new }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace('form', partial: 'form', locals: { proponente: @proponente }) }
+      end
     end
   end
+  
 
   def edit; end
 

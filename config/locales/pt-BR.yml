@@ -1,0 +1,7 @@
+pt-BR:
+  proponentes:
+    success: "Proponente salvo com sucesso."
+    update_success: "Proponente atualizado com sucesso."
+    destroy_success: "Proponente excluído com sucesso."
+    not_found: "Proponente não encontrado."
+    job_in_progress: "A atualização do salário está em andamento."

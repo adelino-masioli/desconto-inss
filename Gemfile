@@ -50,7 +50,8 @@ gem "bootsnap", require: false
 
 
 # Gems para o frontend e visualização
-gem 'bootstrap', '~> 5.0.0'
+gem "bootstrap"
+gem "sassc-rails"
 gem 'chartkick'    # Para gráficos
 gem 'groupdate'    # Para agrupamento de datas em relatórios
 

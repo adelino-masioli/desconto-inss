@@ -311,7 +311,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
-  bootstrap (~> 5.0.0)
+  bootstrap
   capybara
   chartkick
   debug
@@ -328,6 +328,7 @@ DEPENDENCIES
   rails (~> 7.0.4)
   redis
   rubocop-rails
+  sassc-rails
   selenium-webdriver
   sidekiq
   sprockets-rails

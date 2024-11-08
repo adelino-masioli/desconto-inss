@@ -1,0 +1,106 @@
+<!-- app/views/proponentes/_form.html.erb -->
+<%= form_with(model: @proponente, local: true, class: 'needs-validation', novalidate: true, id: 'form') do |form| %>
+  <% if @proponente.errors.any? %>
+    <div class="alert alert-danger mb-4">
+      <h4><%= pluralize(@proponente.errors.count, "erro") %> impediram este proponente de ser salvo:</h4>
+      <ul>
+        <% @proponente.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card p-5 shadow-lg border-0 rounded-3">
+    <!-- Nome e CPF -->
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <%= form.label :nome, class: 'form-label fw-bold' %>
+        <%= form.text_field :nome, class: 'form-control', required: true, placeholder: 'Digite seu nome completo' %>
+      </div>
+      <div class="col-md-3 mb-3">
+        <%= form.label :cpf, class: 'form-label fw-bold' %>
+        <%= form.text_field :cpf, id:'cpf-input', class: 'form-control', required: true, placeholder: 'Digite seu CPF' %>
+      </div>
+
+      <!-- Data de Nascimento -->
+      <div class="col-md-3 mb-3">
+        <%= form.label :data_nascimento, class: 'form-label fw-bold' %>
+        <%= form.date_field :data_nascimento, class: 'form-control', required: true, placeholder: 'Selecione sua data de nascimento' %>
+      </div>
+    </div>
+
+    <!-- Endereço -->
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <%= form.label :cep, class: 'form-label fw-bold' %>
+        <%= form.text_field :cep, class: 'form-control', required: true, placeholder: 'Digite o CEP', id: 'cep-input' %>
+      </div>
+      <div class="col-md-5 mb-3">
+        <%= form.label :logradouro, class: 'form-label fw-bold' %>
+        <%= form.text_field :logradouro, class: 'form-control', required: true, placeholder: 'Digite o logradouro' %>
+      </div>
+      <div class="col-md-4 mb-3">
+        <%= form.label :bairro, class: 'form-label fw-bold' %>
+        <%= form.text_field :bairro, class: 'form-control', required: true, placeholder: 'Digite o bairro' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <%= form.label :numero, class: 'form-label fw-bold' %>
+        <%= form.text_field :numero, class: 'form-control', required: true, placeholder: 'Número da residência' %>
+      </div>
+      <div class="col-md-5 mb-3">
+        <%= form.label :cidade, class: 'form-label fw-bold' %>
+        <%= form.text_field :cidade, class: 'form-control', required: true, placeholder: 'Digite a cidade' %>
+      </div>
+      <div class="col-md-4 mb-3">
+        <%= form.label :estado, class: 'form-label fw-bold' %>
+        <%= form.text_field :estado, class: 'form-control', required: true, placeholder: 'Digite o estado' %>
+      </div>
+    </div>
+
+    <!-- Telefones -->
+    <div class="row" data-controller="proponente">
+      <%= form.fields_for :telefones do |telefones_form| %>
+        <div class="col-md-3 mb-3">
+          <%= telefones_form.label :pessoal, 'Telefone Pessoal', class: 'form-label fw-bold' %>
+          <%= telefones_form.number_field :pessoal, class: 'form-control', required: true, placeholder: 'Telefone pessoal', value: @proponente.telefones['pessoal'] %>
+        </div>
+
+        <div class="col-md-3 mb-3">
+          <%= telefones_form.label :referencia, 'Telefone Referência', class: 'form-label fw-bold' %>
+          <%= telefones_form.number_field :referencia, class: 'form-control', placeholder: 'Telefone de referência', value: @proponente.telefones['referencia'] %>
+        </div>
+      <% end %>
+
+      <div class="col-md-6" data-controller="proponente">
+          <div class="row">
+            <!-- Campo de salário -->
+        
+              <div class="col-md-4">
+                <%= form.label :salario, class: 'form-label fw-bold' %>
+                <%= form.number_field :salario, step: 0.01, class: 'form-control', required: true,
+                                      data: { action: "input->proponente#calcularDesconto", "proponente-target": "salarioInput" }, placeholder: 'Informe seu salário' %>
+              </div>
+          
+            <!-- Desconto INSS -->
+            <div class="col-md-8">
+              <%= form.label "Cálculo", class: 'form-label fw-bold' %>
+              <div  class="d-block p-0 w-100" style="height: 40px;">
+                <span data-proponente-target="descontoElement" class="alert alert-info d-none w-100 p-2"></span>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+
+    <!-- Botões -->
+    <div class="d-flex justify-content-end gap-3 mt-4">
+      <%= link_to 'Voltar', proponentes_path, class: 'btn btn-outline-secondary btn-lg' %>
+      <%= form.submit 'Salvar Proponente', class: 'btn btn-primary btn-lg' %>
+    </div>
+  </div>
+<% end %>

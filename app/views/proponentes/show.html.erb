@@ -5,7 +5,7 @@
   <!-- Card para as informações principais -->
   <div class="card shadow-lg border-0 rounded-3 mb-4">
     <div class="card-body">
-      <h2 class="card-title text-primary"><%= @proponente.nome %></h2>
+      <h2 class="card-title text-dark"><%= @proponente.nome %></h2>
       <p class="card-text">
         <strong>CPF:</strong> <%= @proponente.cpf %><br />
         <strong>Salário:</strong> <%= number_to_currency(@proponente.salario) %><br />
@@ -22,7 +22,7 @@
   <!-- Exibindo as faixas salariais, se houver -->
   <% if @proponentes_por_faixa.present? %>
     <div class="card shadow-lg border-0 rounded-3 mb-4">
-      <div class="card-header bg-primary text-white">
+      <div class="card-header bg-dark text-white">
         <h3 class="mb-0">Quantidade de Proponentes por Faixa Salarial</h3>
       </div>
       <div class="card-body">
@@ -49,6 +49,7 @@
       <p>Não há dados de faixas salariais disponíveis no momento.</p>
     </div>
   <% end %>
+  
 
   <!-- Link de voltar -->
   <div class="d-flex justify-content-end">

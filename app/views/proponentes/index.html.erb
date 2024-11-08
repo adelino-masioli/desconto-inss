@@ -1,9 +1,12 @@
 <div class="container mt-5">
   <h1 class="mb-4 text-center display-6">Lista de Proponentes</h1>
 
-  <div class="d-flex justify-content-start mb-3">
+ <div class="d-flex justify-content-start mb-3">
     <%= link_to 'Novo Proponente', new_proponente_path, class: 'btn btn-primary me-2' %>
     <%= link_to 'Relatório', relatorio_proponentes_path, class: 'btn btn-info' %>
+
+    <!-- Botão de Logout -->
+    <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-danger ms-2' %>
   </div>
 
   <div class="card shadow-lg border-0 rounded-3 p-4">
