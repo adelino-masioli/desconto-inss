@@ -1,82 +1,85 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
+  # As configurações especificadas aqui terão precedência sobre as definidas em config/application.rb.
 
-  # In the development environment your application's code is reloaded any time
-  # it changes. This slows down response time but is perfect for development
-  # since you don't have to restart the web server when you make code changes.
+  # No ambiente de desenvolvimento, o código da aplicação é recarregado sempre que há alterações.
+  # Isso pode reduzir a performance, mas é ideal para o desenvolvimento, pois não é necessário reiniciar o servidor
+  # toda vez que há modificações no código.
   config.cache_classes = false
 
-  # Do not eager load code on boot.
+  # Não carregar o código de forma ansiosa ao iniciar a aplicação.
   config.eager_load = false
 
-  # Show full error reports.
+  # Exibir relatórios de erro completos.
   config.consider_all_requests_local = true
 
-  # Enable server timing
+  # Habilitar a medição de tempo do servidor.
   config.server_timing = true
 
-  # Enable/disable caching. By default caching is disabled.
-  # Run rails dev:cache to toggle caching.
+  # Habilitar/desabilitar cache. Por padrão, o cache está desabilitado.
+  # Execute rails dev:cache para alternar o cache.
   if Rails.root.join("tmp/caching-dev.txt").exist?
+    # Quando o arquivo de cache existe, o caching é ativado.
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
+    # Usar o cache em memória.
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      "Cache-Control" => "public, max-age=#{2.days.to_i}"
+      "Cache-Control" => "public, max-age=#{2.days.to_i}" # Configuração para cache público.
     }
   else
+    # Quando o arquivo de cache não existe, o caching é desabilitado.
     config.action_controller.perform_caching = false
-
     config.cache_store = :null_store
   end
 
-  # Store uploaded files on the local file system (see config/storage.yml for options).
+  # Armazenar arquivos carregados no sistema de arquivos local (consulte config/storage.yml para opções).
   config.active_storage.service = :local
 
-  # Don't care if the mailer can't send.
+  # Não se importar se o mailer não puder enviar emails.
   config.action_mailer.raise_delivery_errors = false
 
+  # Desabilitar cache no mailer.
   config.action_mailer.perform_caching = false
 
-  # Print deprecation notices to the Rails logger.
+  # Imprimir avisos de descontinuação no log do Rails.
   config.active_support.deprecation = :log
 
-  # Raise exceptions for disallowed deprecations.
+  # Levantar exceções para descontinuações proibidas.
   config.active_support.disallowed_deprecation = :raise
 
-  # Tell Active Support which deprecation messages to disallow.
+  # Especificar quais mensagens de descontinuação são proibidas.
   config.active_support.disallowed_deprecation_warnings = []
 
-  # Raise an error on page load if there are pending migrations.
+  # Levantar um erro na carga da página se houver migrações pendentes.
   config.active_record.migration_error = :page_load
 
-  # Highlight code that triggered database queries in logs.
+  # Destacar no log as consultas ao banco de dados que foram feitas.
   config.active_record.verbose_query_logs = true
 
-  # Suppress logger output for asset requests.
+  # Suprimir a saída do log para requisições de assets (arquivos estáticos).
   config.assets.quiet = true
 
-  # Raises error for missing translations.
+  # Levantar erro em caso de traduções ausentes.
   # config.i18n.raise_on_missing_translations = true
 
-  # Annotate rendered view with file names.
+  # Anotar as views renderizadas com os nomes dos arquivos.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
-  # Uncomment if you wish to allow Action Cable access from any origin.
+  # Descomente se desejar permitir o acesso do Action Cable a partir de qualquer origem.
   # config.action_cable.disable_request_forgery_protection = true
 
-  # Configuração do ActionMailer para o Mailtrap
+  # Configuração do ActionMailer para usar o Mailtrap
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'smtp.mailtrap.io',
-    port: 587,
-    user_name: ENV['MAILTRAP_USERNAME'],  # Acessa a variável do .env
-    password: ENV['MAILTRAP_PASSWORD'],  # Acessa a variável do .env
-    authentication: 'plain',
-    enable_starttls_auto: true
+    address: 'smtp.mailtrap.io', # Endereço do servidor SMTP do Mailtrap
+    port: 587, # Porta usada para a conexão SMTP
+    user_name: ENV['MAILTRAP_USERNAME'], # Acessa a variável do .env para o nome de usuário
+    password: ENV['MAILTRAP_PASSWORD'], # Acessa a variável do .env para a senha
+    authentication: 'plain', # Autenticação no formato 'plain'
+    enable_starttls_auto: true # Habilita o STARTTLS automaticamente para a conexão segura
   }
 end

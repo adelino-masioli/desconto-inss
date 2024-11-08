@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+# Migration to create the `users` table for Devise authentication.
+#
+# This migration creates the `users` table, which includes the following:
+# - Authentication columns (`email` and `encrypted_password`)
+# - Password recovery features (reset password token and timestamp)
+# - Remember me functionality (remember_created_at)
+# - Additional user management options (sign-in tracking, confirmation, and lockable features)
+#
+# The table also includes indexes on `email` and `reset_password_token` for faster lookup.
+# Optional features like trackable, confirmable, and lockable are commented out and can be enabled as needed.
 class DeviseCreateUsers < ActiveRecord::Migration[7.0]
   def change
     create_table :users do |t|
@@ -31,7 +41,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
-
 
       t.timestamps null: false
     end

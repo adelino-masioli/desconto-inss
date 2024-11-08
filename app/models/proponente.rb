@@ -1,5 +1,9 @@
+# Proponente: Representa o proponente no sistema, contendo dados pessoais e salariais.
+# Este modelo contém validações para garantir a integridade dos dados e métodos para calcular
+# o desconto de INSS com base em faixas salariais.
 class Proponente < ApplicationRecord
   require 'cpf_cnpj'
+
   # Constantes para as faixas salariais
   FAIXAS_SALARIAIS = [
     { limite: 1_045.00, aliquota: 0.075 },
@@ -29,8 +33,8 @@ class Proponente < ApplicationRecord
   # Scopes refinados
   FAIXAS_SALARIAIS.each_with_index do |faixa, index|
     # Criamos o escopo de cada faixa salarial, com limite inferior e superior
-    scope "faixa#{index + 1}".to_sym, -> {
-      faixa_anterior = FAIXAS_SALARIAIS[index - 1] if index > 0
+    scope "faixa#{index + 1}".to_sym, lambda {
+      faixa_anterior = FAIXAS_SALARIAIS[index - 1] if index.positive?
       limite_inferior = faixa_anterior ? faixa_anterior[:limite] : 0
       where(salario: limite_inferior..faixa[:limite])
     }
@@ -38,6 +42,8 @@ class Proponente < ApplicationRecord
 
   class << self
     # Calcula o desconto INSS conforme o salário
+    # @param salario [Float] Salário do proponente
+    # @return [Float] Valor do desconto de INSS
     def calcular_desconto_inss(salario)
       return 0 if salario <= 0
 
@@ -56,8 +62,10 @@ class Proponente < ApplicationRecord
     end
 
     # Relatório de faixas salariais
+    # Gera um relatório com a contagem de proponentes em cada faixa salarial
+    # @return [Hash] Relatório com a contagem de proponentes por faixa
     def relatorio_faixas_salariais
-      FAIXAS_SALARIAIS.each_with_index.to_h do |faixa, index|
+      FAIXAS_SALARIAIS.each_with_index.to_h do |_faixa, index|
         ["faixa#{index + 1}".to_sym, send("faixa#{index + 1}").count]
       end
     end
@@ -77,10 +85,11 @@ class Proponente < ApplicationRecord
     errors.add(:data_nascimento, 'não pode ser uma data futura')
   end
 
+  # Valida o CPF
   def cpf_valido
-    cpf_sem_formatacao = cpf.gsub(/\D/, '')  # Remove tudo que não for número
-    unless CPF.valid?(cpf_sem_formatacao)
-      errors.add(:cpf, 'não é válido')
-    end
+    cpf_sem_formatacao = cpf.gsub(/\D/, '') # Remove tudo que não for número
+    return if CPF.valid?(cpf_sem_formatacao)
+
+    errors.add(:cpf, 'não é válido')
   end
 end

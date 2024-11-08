@@ -23,7 +23,7 @@ require 'faker'
       pessoal: Faker::PhoneNumber.cell_phone,
       referencia: Faker::PhoneNumber.phone_number
     },
-    salario: Faker::Number.between(from: 1000.00, to: 10000.00).round(2)
+    salario: Faker::Number.between(from: 1000.00, to: 10_000.00).round(2)
   )
 end
 

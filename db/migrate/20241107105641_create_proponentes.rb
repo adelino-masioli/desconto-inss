@@ -4,7 +4,7 @@ class CreateProponentes < ActiveRecord::Migration[7.0]
       t.string :nome
       t.string :cpf
       t.date :data_nascimento
-      t.string :logradouro  # Certifique-se de que esta linha existe
+      t.string :logradouro # Certifique-se de que esta linha existe
       t.string :numero
       t.string :bairro
       t.string :cidade

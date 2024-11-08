@@ -1,3 +1,4 @@
+# ProponentesController: Controlador para gerenciar os proponentes no sistema.
 class ProponentesController < ApplicationController
   before_action :set_proponente, only: %i[show edit update destroy]
   before_action :authenticate_user!
@@ -19,17 +20,11 @@ class ProponentesController < ApplicationController
     @proponente = Proponente.new(proponente_params)
   
     if @proponente.save
-      redirect_to @proponente, notice: t('proponentes.create.success')
-      
+      sucesso_criacao
     else
-      flash.now[:alert] = @proponente.errors.full_messages.to_sentence
-      respond_to do |format|
-        format.html { render :new }
-        format.turbo_stream { render turbo_stream: turbo_stream.replace('form', partial: 'form', locals: { proponente: @proponente }) }
-      end
+      erro_criacao
     end
-  end
-  
+  end  
 
   def edit; end
 
@@ -79,5 +74,19 @@ class ProponentesController < ApplicationController
       :numero, :bairro, :cidade, :estado, :cep,
       :salario, telefones: %i[pessoal referencia]
     )
+  end
+
+  # Método auxiliar para redirecionar após sucesso na criação
+  def sucesso_criacao
+    redirect_to @proponente, notice: t('proponentes.create.success')
+  end
+
+  # Método auxiliar para exibir mensagem de erro na criação
+  def erro_criacao
+    flash.now[:alert] = @proponente.errors.full_messages.to_sentence
+    respond_to do |format|
+      format.html { render :new }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace('form', partial: 'form', locals: { proponente: @proponente }) }
+    end
   end
 end
